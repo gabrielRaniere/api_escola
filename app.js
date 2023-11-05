@@ -19,6 +19,7 @@ import picturesRouter from './src/routes/picturesRoutes';
 const whiteList = [
   'http://192.168.56.1:3000/',
   'http://localhost:3000',
+  'https://pt.wikipedia.org/wiki/Wikip%C3%A9dia',
 ];
 
 const corsOrigin = {

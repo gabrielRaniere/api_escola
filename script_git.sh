@@ -1,3 +1,3 @@
 git add .
-git commit -m "commit automatico"
+git commit -m "brincando com git"
 git push origin main

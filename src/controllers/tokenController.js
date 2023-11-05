@@ -23,6 +23,11 @@ export default class tokenController {
 
         return res.json({
           token: tokenJwt,
+          user: {
+            email,
+            id,
+            password,
+          },
         });
       }
 

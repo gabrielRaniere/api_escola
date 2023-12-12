@@ -45,7 +45,7 @@ export default class Controller {
 
   static async update(req, res) {
     try {
-      const user = await UserModel.findByPk(req.userId);
+      const user = await UserModel.findByPk(req.params.id);
 
       if (!user) {
         return res.json({
@@ -59,9 +59,9 @@ export default class Controller {
 
       const userUpdated = await user.update(req.body);
 
-      const { id, nome, email } = userUpdated;
+      const { id, nome, email, password } = userUpdated;
 
-      return res.json({ id, nome, email });
+      return res.json({ id, nome, email, password });
     } catch (e) {
       return res.status(400).json({
         erros: e.errors.map((erro) => erro.message),
@@ -71,7 +71,11 @@ export default class Controller {
 
   static async delete(req, res) {
     try {
-      const user = await UserModel.findByPk(req.userId);
+      const user = await UserModel.findByPk(req.params.id
+        
+        
+        
+        );
 
       if (!user) {
         res.json({

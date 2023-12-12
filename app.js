@@ -8,6 +8,7 @@ import { resolve } from 'path';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import delay from 'express-delay';
 
 import homeRoutes from './src/routes/home';
 import usersRoutes from './src/routes/usersRoutes';
@@ -42,6 +43,7 @@ class App {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
     this.app.use(express.static(resolve(__dirname, 'uploads')));
+    this.app.use(delay(500))
     this.app.use(helmet());
     this.app.use(cors(corsOrigin));
   }
@@ -50,11 +52,10 @@ class App {
     this.app.use('/', homeRoutes);
     this.app.use('/users/', usersRoutes);
     this.app.use('/tokens/', tokenRouter);
-
+    this.app.use('/alunos/', alunoRouter);
     // rotas - Jwt NECESSaRY
     this.app.use(loginRequired);
     this.app.use('/pictures/', picturesRouter);
-    this.app.use('/alunos/', alunoRouter);
   }
 }
 

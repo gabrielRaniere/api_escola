@@ -75,22 +75,22 @@ class AlunoController {
     try {
       const aluno = await Aluno.findOne(
         {
-          where: req.body,
-          attributes: ['id', 'nome', 'sobrenome'],
+          where: {id: req.params.id},
           order: [[Picture, 'created_at', 'DESC']],
           include: {
             model: Picture,
-            attributes: ['filename', 'aluno_id', 'id'],
+            attributes: ['filename', 'aluno_id', 'id', 'url'],
           },
         },
       );
 
       if (!aluno) {
-        return res.json('aluno não encontrado...');
+        return res.status(404).json('aluno não encontrado...');
       }
 
       return res.json(aluno);
     } catch (e) {
+      console.log(e)
       return res.status(400).json('algo deu errado...');
     }
   }

@@ -6,7 +6,7 @@ import Picture from '../models/pictures';
 
 import User from '../models/users';
 
-const upload = multer(multerConfig).single('arquivo');
+const upload = multer(multerConfig).single('foto');
 
 class PictureController {
   store(req, res) {
@@ -18,7 +18,6 @@ class PictureController {
             errors: err.code,
           });
         }
-
         const { originalname, filename } = req.file;
         const { aluno_id } = req.body;
 
@@ -33,7 +32,7 @@ class PictureController {
             errors: 'usuário não encontrado...',
           });
         }
-
+        console.log(e)
         return res.status(400).json('algo deu errado...');
       }
     });

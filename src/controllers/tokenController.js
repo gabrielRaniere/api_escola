@@ -10,13 +10,15 @@ export default class tokenController {
       if (!email || !password) return res.status(401).json('credenciais invalidas!');
 
       const user = await User.findOne({ where: { email } });
+  
+      if(!user) return res.status(404).json('usuário não encontrado')
 
-      const passwordTrue = await user.passwordTrue(password);
-
+      const passwordTrue = await user.passwordTrue(password, user.password_hash );
+      console.log(passwordTrue)
       if (user && passwordTrue) {
         console.log(user);
 
-        const { id } = user;
+        const { id, nome } = user;
         const tokenJwt = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
           expiresIn: process.env.TOKEN_EXPIRATION,
         });
@@ -24,6 +26,7 @@ export default class tokenController {
         return res.json({
           token: tokenJwt,
           user: {
+            nome,
             email,
             id,
             password,

@@ -52,9 +52,8 @@ export default class User extends Model {
     return this;
   }
 
-  async passwordTrue(pass) {
-    const compare = await bcrypt.compare(pass, this.password_hash);
-
+  async passwordTrue(pass, hash) {
+    const compare = await bcrypt.compare(pass, hash);
     return compare;
   }
 }
